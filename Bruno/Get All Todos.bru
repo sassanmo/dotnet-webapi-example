@@ -1,0 +1,16 @@
+meta {
+  name: Get All Todos
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://{{host}}:{{port}}/{{api_context_path}}/{{api_version}}/{{todo_resource}}
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
