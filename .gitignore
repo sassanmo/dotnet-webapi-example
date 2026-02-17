@@ -41,3 +41,5 @@ TestResults/
 # Coverage
 coverage/
 coverage.*
+
+keycloak-certs/tls.key

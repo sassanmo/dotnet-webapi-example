@@ -3,5 +3,6 @@ namespace Todo;
 public static class ConfigurationKeys
 {
     public const string MongoDbConnectionString = "MongoDb:ConnectionString";
-    // Add more configuration keys here as needed
+    public const string KeycloakAuthority = "Keycloak:Authority";
+    public const string Bearer = "Bearer";
 }

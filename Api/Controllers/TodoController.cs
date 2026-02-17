@@ -1,5 +1,6 @@
 namespace Todo.Api.Controllers;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using Todo.Application.Contracts;
 
 [ApiController]
 [Route("api/v1/todos")]
+[Authorize]
 public class TodoController : ControllerBase
 {
     private readonly ITodoService _todoService;
@@ -18,6 +20,7 @@ public class TodoController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize(Roles = "read")]
     public async Task<ActionResult<IEnumerable<TodoResponse>>> Get()
     {
         var todos = await _todoService.ListAsync();
@@ -25,6 +28,7 @@ public class TodoController : ControllerBase
     }
 
     [HttpGet("{id}")]
+    [Authorize(Roles = "read")]
     public async Task<ActionResult<TodoResponse>> GetById(string id)
     {
         var todo = await _todoService.GetByIdAsync(id);
@@ -32,6 +36,7 @@ public class TodoController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = "write")]
     public async Task<ActionResult<TodoResponse>> Post([FromBody] CreateTodoRequest request)
     {
         var created = await _todoService.CreateAsync(request);
@@ -39,6 +44,7 @@ public class TodoController : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [Authorize(Roles = "write")]
     public async Task<IActionResult> Put(string id, [FromBody] UpdateTodoRequest updated)
     {
         var updatedOk = await _todoService.UpdateAsync(id, updated);
@@ -46,6 +52,7 @@ public class TodoController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize(Roles = "write")]
     public async Task<IActionResult> Delete(string id)
     {
         var deleted = await _todoService.DeleteAsync(id);
