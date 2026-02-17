@@ -20,9 +20,11 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore
       - name: Build
-        run: dotnet build --no-restore --configuration Release
+        run: dotnet build --no-restore --configuration Development
       - name: Test
-        run: dotnet test --no-build --configuration Release --verbosity normal
+        run: dotnet test --no-build --configuration Development --verbosity normal
+      - name: Publish
+        run: dotnet publish --no-build --configuration Development --output ./publish
 
   deploy:
     if: github.ref == 'refs/heads/main'
